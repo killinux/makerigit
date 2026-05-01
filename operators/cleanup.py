@@ -124,7 +124,41 @@ class MAKERIGIT_OT_remove_region_physics(bpy.types.Operator):
         return {'FINISHED'}
 
 
+class MAKERIGIT_OT_toggle_rigid_visibility(bpy.types.Operator):
+    bl_idname = 'makerigit.toggle_rigid_visibility'
+    bl_label = 'Toggle Rigid Body Visibility'
+    bl_description = 'Show or hide all rigid body objects'
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        return context.active_object is not None
+
+    def execute(self, context):
+        root = find_mmd_root(context.active_object)
+        if root is None:
+            self.report({'ERROR'}, 'No MMD model found')
+            return {'CANCELLED'}
+
+        rigid_objs = [obj for obj in root.children_recursive
+                      if getattr(obj, 'mmd_type', '') == 'RIGID_BODY']
+        if not rigid_objs:
+            self.report({'WARNING'}, 'No rigid bodies found')
+            return {'CANCELLED'}
+
+        # Toggle based on first rigid body's current state
+        new_hide = not rigid_objs[0].hide_get()
+        for obj in rigid_objs:
+            obj.hide_set(new_hide)
+            obj.hide_viewport = new_hide
+
+        state = 'Hidden' if new_hide else 'Visible'
+        self.report({'INFO'}, f'{len(rigid_objs)} rigid bodies: {state}')
+        return {'FINISHED'}
+
+
 classes = (
     MAKERIGIT_OT_remove_all_physics,
     MAKERIGIT_OT_remove_region_physics,
+    MAKERIGIT_OT_toggle_rigid_visibility,
 )

@@ -224,6 +224,7 @@ class MAKERIGIT_PT_cleanup(_MakeRigitPanelBase, bpy.types.Panel):
         layout = self.layout
 
         layout.operator('makerigit.remove_all_physics', icon='TRASH')
+        layout.operator('makerigit.toggle_rigid_visibility', icon='HIDE_OFF')
 
         layout.separator()
         col = layout.column(align=True)
