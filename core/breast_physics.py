@@ -92,9 +92,11 @@ def create_breast_physics(model, arm, mmd_root, *,
     n_rigids = 1 if anchor_created else 0
     n_joints = 0
     skipped = []
+    bone_to_rigid = {anchor_bone.name: anchor_rigid}
 
     for breast_bone in breast_bones:
         if breast_bone.name in existing:
+            bone_to_rigid[breast_bone.name] = existing[breast_bone.name]
             skipped.append(f'{breast_bone.name} (already exists)')
             continue
 
@@ -125,6 +127,7 @@ def create_breast_physics(model, arm, mmd_root, *,
             collision_group_number=collision_group,
             collision_group_mask=collision_mask,
         )
+        bone_to_rigid[breast_bone.name] = rigid
         n_rigids += 1
 
         if auto_fit_size:
@@ -134,6 +137,18 @@ def create_breast_physics(model, arm, mmd_root, *,
             if mesh is not None:
                 fit_rigid_to_mesh(rigid, arm, mesh, breast_bone.name, shape,
                                   pad=fit_pad)
+
+    for breast_bone in breast_bones:
+        rigid_b = bone_to_rigid.get(breast_bone.name)
+        if rigid_b is None:
+            continue
+
+        parent = breast_bone.parent
+        if parent is None:
+            continue
+        rigid_a = bone_to_rigid.get(parent.name)
+        if rigid_a is None:
+            rigid_a = anchor_rigid
 
         lx = math.radians(params['limit_x'])
         ly = math.radians(params['limit_y'])
@@ -147,8 +162,8 @@ def create_breast_physics(model, arm, mmd_root, *,
             name_e=breast_bone.name,
             location=joint_loc,
             rotation=joint_rot,
-            rigid_a=anchor_rigid,
-            rigid_b=rigid,
+            rigid_a=rigid_a,
+            rigid_b=rigid_b,
             maximum_location=(0.0, 0.0, 0.0),
             minimum_location=(0.0, 0.0, 0.0),
             maximum_rotation=(lx, ly, lz),

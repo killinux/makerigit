@@ -49,7 +49,7 @@ REGION_DEFAULT_COLLISION_GROUP = {
     'OTHER': 6,
 }
 
-BREAST_BONE_PATTERNS = ('乳奶', '胸', 'おっぱい', 'breast')
+BREAST_BONE_PATTERNS = ('乳奶', '胸', 'おっぱい', 'breast', 'boob', 'Boob', 'mune')
 
 BREAST_ANCHOR_PRIORITY = ['上半身2', '上半身', '上半身3']
 
