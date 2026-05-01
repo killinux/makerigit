@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "name": "breast_subtle",
+  "type": "breast",
+  "mass": 0.8,
+  "friction": 0.5,
+  "linear_damping": 0.8,
+  "angular_damping": 0.8,
+  "bounce": 0.1,
+  "limit_x": 8.0,
+  "limit_y": 5.0,
+  "limit_z": 8.0,
+  "spring_ang_x": 100.0,
+  "spring_ang_y": 100.0,
+  "spring_ang_z": 100.0,
+  "spring_lin_x": 0.0,
+  "spring_lin_y": 0.0,
+  "spring_lin_z": 0.0
+}

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "name": "breast_dramatic",
+  "type": "breast",
+  "mass": 1.5,
+  "friction": 0.5,
+  "linear_damping": 0.2,
+  "angular_damping": 0.2,
+  "bounce": 0.8,
+  "limit_x": 35.0,
+  "limit_y": 20.0,
+  "limit_z": 35.0,
+  "spring_ang_x": 10.0,
+  "spring_ang_y": 10.0,
+  "spring_ang_z": 10.0,
+  "spring_lin_x": 0.0,
+  "spring_lin_y": 0.0,
+  "spring_lin_z": 0.0
+}

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "name": "hair_default",
+  "type": "region",
+  "region": "hair",
+  "radius_ratio": 0.15,
+  "root_angle_deg": 10.0,
+  "leaf_angle_deg": 30.0,
+  "base_mass": 0.5,
+  "mass_decay": 0.8,
+  "friction": 0.5,
+  "linear_damping": 0.5,
+  "angular_damping": 0.5,
+  "bounce": 0.0,
+  "collision_group": 2
+}
